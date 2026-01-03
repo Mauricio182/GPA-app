@@ -13,9 +13,12 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 import { AllEnterpriseModule } from 'ag-grid-enterprise';
 ModuleRegistry.registerModules([AllEnterpriseModule]);
 
+import {MatTabsModule} from '@angular/material/tabs';
+
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, AgGridAngular],
+  imports: [RouterOutlet, AgGridAngular, MatTabsModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
