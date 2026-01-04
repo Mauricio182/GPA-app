@@ -14,10 +14,13 @@ import { AllEnterpriseModule } from 'ag-grid-enterprise';
 ModuleRegistry.registerModules([AllEnterpriseModule]);
 
 import {MatTabsModule} from '@angular/material/tabs';
-
+/// <reference types="jspdf-autotable" /> 
 
 // usar EXCEL
 import * as XLSX from 'xlsx';
+
+import { jsPDF } from 'jspdf';
+import { autoTable } from 'jspdf-autotable'
 
 @Component({
   selector: 'app-root',
@@ -89,5 +92,45 @@ onFileChange(event: any) {
     console.log(data);
   };
 }
+  previsualizarPDF() {
+    const doc = new jsPDF();
 
+    // Añadir texto al PDF
+    doc.text("¡Este es un PDF que puedes previsualizar antes de guardar!", 20, 30);
+
+    // Abrir el PDF en una nueva ventana
+    const pdfOutput = doc.output('bloburl'); // Genera una URL de tipo Blob
+    window.open(pdfOutput, '_blank'); // Abre en una nueva ventana
+  }
+
+  generarPDF() {
+    // Crear una nueva instancia de jsPDF
+    const doc = new jsPDF();
+
+    // Añadir texto al PDF
+    doc.text("¡Hola, este es un PDF generado en Angular!", 20, 30);
+
+    // Guardar el PDF con un nombre
+    doc.save('archivo.pdf');
+  }
+
+generarTablaPDF() {
+const doc = new jsPDF()
+
+// It can parse html:
+// <table id="my-table"><!-- ... --></table>
+autoTable(doc, { html: '#my-table' })
+
+// Or use javascript directly:
+autoTable(doc, {
+  head: [['Name', 'Email', 'Country']],
+  body: [
+    ['David', 'david@example.com', 'Sweden'],
+    ['Castille', 'castille@example.com', 'Spain'],
+    // ...
+  ],
+})
+
+doc.save('table.pdf')
+}
 }
