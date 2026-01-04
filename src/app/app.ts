@@ -16,6 +16,9 @@ ModuleRegistry.registerModules([AllEnterpriseModule]);
 import {MatTabsModule} from '@angular/material/tabs';
 
 
+// usar EXCEL
+import * as XLSX from 'xlsx';
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, AgGridAngular, MatTabsModule],
@@ -64,4 +67,27 @@ defaultColDef = {
   ],
   defaultToolPanel: ''
 };
+
+onFileChange(event: any) {
+  const file = event.target.files[0];
+
+  const reader = new FileReader();
+  reader.readAsBinaryString(file);
+
+  reader.onload = (e: any) => {
+    const binaryData = e.target.result;
+
+    const workbook = XLSX.read(binaryData, { type: 'binary' });
+
+    // Primera hoja
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+
+    // Convertir a JSON
+    const data = XLSX.utils.sheet_to_json(sheet);
+
+    console.log(data);
+  };
+}
+
 }
