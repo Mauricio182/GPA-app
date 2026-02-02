@@ -18,55 +18,18 @@ import {MatTabsModule} from '@angular/material/tabs';
 
 import { LoginForm } from './components/views/login-form/login-form';
 import { Paginator } from './components/views/paginator/paginator';
+import { TableViewer } from './components/views/table-viewer/table-viewer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, AgGridAngular, LoginForm, Paginator ],
+  imports: [RouterOutlet, LoginForm, Paginator, TableViewer],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('GPA-app');
 
-    rowData = [
-    { make: 'KIA', model: 'K3', price: 35000, electric: false },
-    { make: 'Ford', model: 'Mondeo', price: 32000, electric: true },
-    { make: 'Porsche', model: 'Boxster', price: 72000, electric: true },
-  ];
-
-  colDefs: ColDef[] = [
-    { field: 'make' },
-    { field: 'model' },
-    { field: 'price' },
-    { field: 'electric' },
-  ];
-defaultColDef = {
-  flex: 1,
-  minWidth: 100,
-  resizable: true,
-  sortable: true,
-  filter: true    // <-- Esto activa filtros en TODAS las columnas
-};
-
-  sideBar = {
-  toolPanels: [
-    {
-      id: 'columns',
-      labelDefault: 'Columns',
-      labelKey: 'columns',
-      iconKey: 'columns',
-      toolPanel: 'agColumnsToolPanel',
-    },
-    {
-      id: 'filters',
-      labelDefault: 'Filters',
-      labelKey: 'filters',
-      iconKey: 'filter',
-      toolPanel: 'agFiltersToolPanel',
-    }
-  ],
-  defaultToolPanel: ''
-};
+   
 
 
 
