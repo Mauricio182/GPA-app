@@ -21,10 +21,11 @@ import * as XLSX from 'xlsx';
 
 import { jsPDF } from 'jspdf';
 import { autoTable } from 'jspdf-autotable'
+import { LoginForm } from './components/views/login-form/login-form';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, AgGridAngular, MatTabsModule],
+  imports: [RouterOutlet, AgGridAngular, MatTabsModule, LoginForm],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
