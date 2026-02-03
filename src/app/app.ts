@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { provideRouter, RouterOutlet } from '@angular/router';
 
 import { AllCommunityModule, ModuleRegistry, SideBarDef } from 'ag-grid-community';
 
@@ -19,10 +19,12 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { LoginForm } from './components/views/login-form/login-form';
 import { Paginator } from './components/views/paginator/paginator';
 import { TableViewer } from './components/views/table-viewer/table-viewer';
+import { routes } from './app.routes';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LoginForm, Paginator],
+  imports: [RouterOutlet],
+  // providers: [provideRouter(routes)],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
