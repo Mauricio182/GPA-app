@@ -21,5 +21,14 @@ export const routes: Routes = [
     title: 'no-auth',
     component: NoAccessHome,
   },
-  { path: '**', component: LoginForm },
+    {
+    path: '',
+    redirectTo: 'home-login',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: 'no-auth',
+    pathMatch: 'full'
+  }
 ];
