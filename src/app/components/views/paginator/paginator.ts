@@ -8,10 +8,11 @@ import { jsPDF } from 'jspdf';
 import { autoTable } from 'jspdf-autotable'
 import { MatTabsModule } from '@angular/material/tabs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { TableViewer } from '../table-viewer/table-viewer';
 
 @Component({
   selector: 'app-paginator',
-  imports: [MatTabsModule],
+  imports: [MatTabsModule, TableViewer],
   templateUrl: './paginator.html',
   styleUrl: './paginator.css',
 })

@@ -1,14 +1,15 @@
- <mat-tab-group>
-    <mat-tab label="First"> Content 1 </mat-tab>
-    <mat-tab label="Second"> <iframe
-  [src]="pdfUrl"
-  width="30%"
-  height="400px"
-  >
-</iframe></mat-tab>
+<div class="paginatorMainContainer">
+<mat-tab-group class="paginatorContainer">
+    <mat-tab label="First" >
+        <app-table-viewer class="tabContainer"></app-table-viewer>
+    </mat-tab>
+    <mat-tab label="Second"> <iframe [src]="pdfUrl" width="30%" height="400px">
+        </iframe></mat-tab>
     <mat-tab label="Third"> Content 3 </mat-tab>
-  </mat-tab-group>
-  <input type="file" (change)="onFileChange($event)" accept=".xlsx,.xls" />
-  <button (click)="generarPDF()">Generar PDF</button>
-  <button (click)="previsualizarPDF()">Previsualizar PDF</button>
-  <button (click)="generarTablaPDF()">generarTablaPDF</button>
+</mat-tab-group>
+
+</div>
+<input type="file" (change)="onFileChange($event)" accept=".xlsx,.xls" />
+<button (click)="generarPDF()">Generar PDF</button>
+<button (click)="previsualizarPDF()">Previsualizar PDF</button>
+<button (click)="generarTablaPDF()">generarTablaPDF</button>

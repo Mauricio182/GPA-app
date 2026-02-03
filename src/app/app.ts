@@ -22,7 +22,7 @@ import { TableViewer } from './components/views/table-viewer/table-viewer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LoginForm, Paginator, TableViewer],
+  imports: [RouterOutlet, LoginForm, Paginator],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
