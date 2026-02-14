@@ -16,15 +16,10 @@ ModuleRegistry.registerModules([AllEnterpriseModule]);
 import {MatTabsModule} from '@angular/material/tabs';
 /// <reference types="jspdf-autotable" /> 
 
-import { LoginForm } from './components/views/login-form/login-form';
-import { Paginator } from './components/views/paginator/paginator';
-import { TableViewer } from './components/views/table-viewer/table-viewer';
-import { routes } from './app.routes';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
-  // providers: [provideRouter(routes)],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

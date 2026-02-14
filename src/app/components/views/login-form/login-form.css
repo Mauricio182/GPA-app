@@ -17,7 +17,8 @@ width: 40%;
 
 /* Fondo general azul + centrado */
 .formContainer {
-  min-height: 100vh; /* ocupa toda la pantalla */
+  /* min-height: calc(100vh - 64px);  */
+  min-height: calc(100vh); 
   display: flex;
   justify-content: center;
   align-items: center;
