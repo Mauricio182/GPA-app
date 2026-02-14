@@ -9,10 +9,12 @@ import { autoTable } from 'jspdf-autotable'
 import { MatTabsModule } from '@angular/material/tabs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TableViewer } from '../table-viewer/table-viewer';
+import { Navbar } from '../../navbar/navbar';
+import { Progresbar } from '../../progresbar/progresbar';
 
 @Component({
   selector: 'app-paginator',
-  imports: [MatTabsModule, TableViewer],
+  imports: [MatTabsModule, TableViewer,Navbar, Progresbar],
   templateUrl: './paginator.html',
   styleUrl: './paginator.css',
 })

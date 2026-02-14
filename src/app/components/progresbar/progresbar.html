@@ -1,0 +1,25 @@
+<div class="stepper-container">
+
+  <ul class="progressbar">
+    <li
+      *ngFor="let step of steps; let i = index"
+      [class.active]="i === currentStep"
+      [class.completed]="i < currentStep"
+    >
+      <span class="circle">{{ i + 1 }}</span>
+      <span class="label">{{ step }}</span>
+    </li>
+  </ul>
+
+  <div class="buttons">
+    <button (click)="prev()" [disabled]="currentStep === 0">
+      Anterior
+    </button>
+
+    <button (click)="next()" [disabled]="currentStep === steps.length - 1">
+      Siguiente
+    </button>
+  </div>
+
+</div>
+
