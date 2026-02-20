@@ -1,4 +1,13 @@
-<div style="width: 50%;">
-  <ag-grid-angular class="ag-theme-quatrz" style="height: 400px; width: auto" [rowData]="rowData" [columnDefs]="colDefs"
-    [defaultColDef]="defaultColDef" [sideBar]="sideBar" />
+<div style="width: 100%; height: 400px;">
+  <ag-grid-angular
+    class="ag-theme-alpine"
+    style="width: 100%; height: 100%;"
+    [rowData]="rowData"
+    [columnDefs]="colDefs"
+    [defaultColDef]="defaultColDef"
+    [sideBar]="sideBar"
+    [pagination]="true"
+    [paginationPageSize]="10"
+    (gridReady)="onGridReady($event)">
+  </ag-grid-angular>
 </div>

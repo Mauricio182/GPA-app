@@ -20,6 +20,7 @@ import { Progresbar } from '../../progresbar/progresbar';
 })
 export class Paginator {
   pdfUrl: SafeResourceUrl;
+  public lastEmploysXlsData: any[]= []
 
 constructor(private sanitizer: DomSanitizer){
     const url = 'https://tec.mx/sites/default/files/repositorio/TestPDF.pdf?srsltid=AfmBOopm176jrTnoszR3fuShjp-3thbK15l82Qbc3Brlj51GqjAmmIKv';
@@ -85,7 +86,8 @@ doc.save('table.pdf')
     // Convertir a JSON
     const data = XLSX.utils.sheet_to_json(sheet);
 
-    console.log(data);
+   // console.log(data);
+    this.lastEmploysXlsData= data
   };
 }
 }
