@@ -44,12 +44,12 @@ export class LoginForm {
 
   onSubmit() {
     if (this.form.valid) {
-      console.log(this.form.value);
+      //console.log(this.form.value);
     }
     let email= this.form.value.email
     let password= this.form.value.password
 
-      console.warn('llaves correctas 2')
+     // console.warn('llaves correctas 2')
     let success = this.authService.login(email, password);
 
     if (success) {

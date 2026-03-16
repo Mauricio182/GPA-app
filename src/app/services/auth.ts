@@ -12,11 +12,11 @@ export class AuthService {
 
   login(email: any, password: any): boolean {
     const gpemail = 'jorge@gp.com'
-    const gppass = '12345'
+    const gppass = '123'
 
     if (email == gpemail && password == gppass) {
       this._isAuthenticated.set(true);
-      console.warn('llaves correctas')
+     // console.warn('llaves correctas')
       return true;
     }
     return false;
