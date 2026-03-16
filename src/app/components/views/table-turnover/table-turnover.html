@@ -1,0 +1,16 @@
+<div style="width: 100%; height: 400px;">
+  <ag-grid-angular
+    class="ag-theme-alpine"
+    style="width: 100%; height: 100%;"
+    [rowData]="rowData"
+    [columnDefs]="colDefs"
+    [defaultColDef]="defaultColDef"
+    [sideBar]="sideBar"
+    [pagination]="true"
+    [paginationPageSize]="10"
+    [enableRangeSelection]="true"
+    (gridReady)="onGridReady($event)">
+  </ag-grid-angular>
+</div>
+
+<button (click)="sendTableToDB()">send to FIREBASE</button>
