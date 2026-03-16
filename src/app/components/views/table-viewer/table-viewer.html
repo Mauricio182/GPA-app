@@ -8,6 +8,8 @@
     [sideBar]="sideBar"
     [pagination]="true"
     [paginationPageSize]="10"
+    [enableRangeSelection]="true"
     (gridReady)="onGridReady($event)">
   </ag-grid-angular>
 </div>
+<button (click)="postEmpleado()" >GENERAR EMPLEADO</button>

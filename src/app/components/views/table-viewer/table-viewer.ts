@@ -1,6 +1,6 @@
-import { Component, Input, input, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges, viewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef } from 'ag-grid-community';
+import { Http } from '../../../services/http';
 
 @Component({
   selector: 'app-table-viewer',
@@ -10,16 +10,32 @@ import { ColDef } from 'ag-grid-community';
 })
 export class TableViewer {
   @Input() lastEmploys: any[] = [];
+  @Input() currentEmploys: any[] = [];
+  @Input() turnOverEmployee: any[] = [];
+
+  
   colDefs: any[] = [];
   rowData: any[] = [];
 
-  constructor() {}
+  constructor(private _http:Http) {}
 
-  ngOnInit(): void {
-    console.log('oninit');
-    console.warn(this.lastEmploys);
-  }
+  ngOnInit(): void {}
 
+postEmpleado() {
+  this._http.crearPost({
+    nombre: 'Mauricio',
+    edad: 34,
+    id: "121212121"
+  }).subscribe({
+    next: (res) => {
+      console.log('Empleado creado correctamente', res);
+      // res.name contiene el ID generado por Firebase
+    },
+    error: (err) => {
+      console.error('Error al crear empleado', err);
+    }
+  });
+}
   private fieldMap: { [key: string]: string } = {
     'Nombre Depto.': 'nombreDepto',
     'Nombre Puesto': 'nombrePuesto',
@@ -43,6 +59,11 @@ export class TableViewer {
   };
 
   ngOnChanges(changes: SimpleChanges) {
+    this.setRowColsForlastEmploys(changes);
+    this.setRowColsForCurrentEmploys(changes);
+  }
+
+  setRowColsForlastEmploys(changes: SimpleChanges) {
     if (changes['lastEmploys'] && this.lastEmploys?.length) {
       this.rowData = this.lastEmploys.map((emp) => {
         const newObj: any = {};
@@ -57,9 +78,51 @@ export class TableViewer {
         field: key,
         headerName: this.headerMap[key] || key,
       }));
+     // console.warn('empleados semana pasada', this.lastEmploys);
+    }
+        console.log('Tabla cols:', this.colDefs);
+    console.log('Tabla rows:', this.rowData);
+  }
 
-      console.log('RowData transformado:', this.rowData);
-      console.log('ColumnDefs dinámico:', this.colDefs);
+
+  public updateGrid(data: any[]) {
+    if (!data || !data.length) {
+      this.rowData = [];
+      this.colDefs = [];
+      return;
+    }
+
+    // Crear nuevas referencias para que Angular detecte el cambio
+    this.rowData = [...data];
+
+    // Generar columnas automáticamente según las claves del primer objeto
+    this.colDefs = Object.keys(data[0]).map(key => ({
+      field: key,
+      headerName: key, // aquí puedes poner nombres más amigables si quieres
+    }));
+
+    console.log('Tabla cols:', this.colDefs);
+    console.log('Tabla rows:', this.rowData);
+
+  }
+
+
+    setRowColsForCurrentEmploys(changes: SimpleChanges) {
+    if (changes['currentEmploys'] && this.currentEmploys?.length) {
+      this.rowData = this.currentEmploys.map((emp) => {
+        const newObj: any = {};
+        Object.keys(emp).forEach((key) => {
+          const field = this.fieldMap[key] || key;
+          newObj[field] = emp[key];
+        });
+        return newObj;
+      });
+
+      this.colDefs = Object.keys(this.rowData[0]).map((key) => ({
+        field: key,
+        headerName: this.headerMap[key] || key,
+      }));
+     // console.warn('empleados actuales', this.currentEmploys);
     }
   }
 

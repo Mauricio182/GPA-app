@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 
 // usar EXCEL
@@ -11,18 +11,26 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TableViewer } from '../table-viewer/table-viewer';
 import { Navbar } from '../../navbar/navbar';
 import { Progresbar } from '../../progresbar/progresbar';
+import { TableTurnover } from '../table-turnover/table-turnover';
+import { NgIf } from '@angular/common';
+import { Http } from '../../../services/http';
 
 @Component({
   selector: 'app-paginator',
-  imports: [MatTabsModule, TableViewer,Navbar, Progresbar],
+  imports: [MatTabsModule, TableViewer,Navbar, TableTurnover, NgIf],
   templateUrl: './paginator.html',
   styleUrl: './paginator.css',
 })
 export class Paginator {
   pdfUrl: SafeResourceUrl;
   public lastEmploysXlsData: any[]= []
-
-constructor(private sanitizer: DomSanitizer){
+  public currentEmploysXlsData: any[]= []
+  public turnOverEmployeeXlsData: any[]= []
+  public calculado: boolean = false
+  steps:number = 1
+ @ViewChild('tableViewerturnover') tableViewer!: TableTurnover;
+ 
+constructor(private sanitizer: DomSanitizer, private _http:Http){
     const url = 'https://tec.mx/sites/default/files/repositorio/TestPDF.pdf?srsltid=AfmBOopm176jrTnoszR3fuShjp-3thbK15l82Qbc3Brlj51GqjAmmIKv';
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 }
@@ -88,6 +96,74 @@ doc.save('table.pdf')
 
    // console.log(data);
     this.lastEmploysXlsData= data
+       this.steps = 2
   };
+}
+
+  onFileChange2(event: any) {
+  const file = event.target.files[0];
+
+  const reader = new FileReader();
+  reader.readAsBinaryString(file);
+
+  reader.onload = (e: any) => {
+    const binaryData = e.target.result;
+
+    const workbook = XLSX.read(binaryData, { type: 'binary' });
+
+    // Primera hoja
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+
+    // Convertir a JSON
+    const data = XLSX.utils.sheet_to_json(sheet);
+
+   // console.log(data);
+    this.currentEmploysXlsData= data
+    this.steps = 3
+  };
+}
+
+
+calcTurnOver(): any[] {
+  const curpsLista1 = new Set(this.lastEmploysXlsData.map(emp => emp["Empleado"]));
+
+
+  ///////// demo
+const turnOverObj: any = {};
+this.turnOverEmployeeXlsData.forEach(emp => {
+  // usa el número de empleado como clave
+  turnOverObj[emp["Empleado"]] = emp;
+});
+///////// demo
+
+
+  const turnOver = this.currentEmploysXlsData.filter(
+    emp => !curpsLista1.has(emp["Empleado"])
+  );
+
+  console.log('Altas detectadas:', turnOver);
+  this.turnOverEmployeeXlsData = turnOver
+
+  this.tableViewer.updateGrid(turnOver)
+     
+      console.log('step3')
+      this.calculado=true
+
+// ////////codigo demo
+
+// this._http.crearPost(turnOverObj).subscribe({
+//     next: (res) => {
+//       console.log('Empleado creado correctamente', res);
+//       // res.name contiene el ID generado por Firebase
+//     },
+//     error: (err) => {
+//       console.error('Error al crear empleado', err);
+//     }
+//   });
+
+// ////////codigo demo
+
+  return this.turnOverEmployeeXlsData;
 }
 }
