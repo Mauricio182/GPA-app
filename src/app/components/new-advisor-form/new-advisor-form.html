@@ -1,0 +1,51 @@
+
+<div class="form-container">
+<button style="align-self: flex-end; color: #ffffff;;" mat-icon-button class="close-button" (click)="closeDialog()">
+    <mat-icon>close</mat-icon>
+</button>
+
+<form class="form" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+
+    <h1 style="color:#E0E0E0;">Nuevo Asesor</h1>
+    <br>
+    <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input matInput [formControl]="name" required />
+
+        @if (name.invalid && name.touched) {
+        <mat-error>{{ errorMessage(name) }}</mat-error>
+        }
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Apellido</mat-label>
+        <input matInput [formControl]="lastName" required />
+
+        @if (lastName.invalid && lastName.touched) {
+        <mat-error>{{ errorMessage(lastName) }}</mat-error>
+        }
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput [formControl]="email" required />
+
+        @if (email.invalid && email.touched) {
+        <mat-error>{{ errorMessage(email) }}</mat-error>
+        }
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" [formControl]="password" required />
+
+        @if (password.invalid && password.touched) {
+        <mat-error>{{ errorMessage(password) }}</mat-error>
+        }
+    </mat-form-field>
+
+    <button mat-raised-button type="submit">Enviar</button>
+
+
+</form>
+</div>

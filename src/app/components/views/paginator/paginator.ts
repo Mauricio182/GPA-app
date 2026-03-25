@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-
+import {ChangeDetectionStrategy, Component, inject, ViewChild} from '@angular/core';
 
 // usar EXCEL
 import * as XLSX from 'xlsx';
@@ -14,6 +13,8 @@ import { Progresbar } from '../../progresbar/progresbar';
 import { TableTurnover } from '../table-turnover/table-turnover';
 import { NgIf } from '@angular/common';
 import { Http } from '../../../services/http';
+import {MatDialog} from '@angular/material/dialog';
+import { NewAdvisorForm } from '../../new-advisor-form/new-advisor-form';
 
 @Component({
   selector: 'app-paginator',
@@ -27,6 +28,7 @@ export class Paginator {
   public currentEmploysXlsData: any[]= []
   public turnOverEmployeeXlsData: any[]= []
   public calculado: boolean = false
+  readonly dialog = inject(MatDialog);
   steps:number = 1
  @ViewChild('tableViewerturnover') tableViewer!: TableTurnover;
  
@@ -34,6 +36,17 @@ constructor(private sanitizer: DomSanitizer, private _http:Http){
     const url = 'https://tec.mx/sites/default/files/repositorio/TestPDF.pdf?srsltid=AfmBOopm176jrTnoszR3fuShjp-3thbK15l82Qbc3Brlj51GqjAmmIKv';
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 }
+
+  openDialog() {
+  this.dialog.open(NewAdvisorForm, {
+    disableClose: true  // ❌ esto bloquea el click fuera y ESC
+  });
+}
+
+    closeDialog() {
+    this.dialog.closeAll()
+  }
+
 generarTablaPDF() {
 const doc = new jsPDF()
 
