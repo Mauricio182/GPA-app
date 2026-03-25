@@ -1,4 +1,3 @@
-import { NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   MatCard,
@@ -26,7 +25,6 @@ import { Router } from '@angular/router';
     MatInputModule,
     ReactiveFormsModule,
     MatIconModule,
-    NgOptimizedImage,
   ],
   templateUrl: './login-form.html',
   styleUrl: './login-form.css',
