@@ -12,7 +12,7 @@ private apiUrl = 'https://gp-app-29916-default-rtdb.firebaseio.com';
 
 crearPost(data: any): Observable<any> {
   console.log('crear empleado activado');
-  return this.http.post(this.apiUrl+'/empleados.json', data);
+  return this.http.post(this.apiUrl+'/altas-bajas.json', data);
 }
 
 getData(): Observable<any> {
