@@ -9,6 +9,7 @@
   </div>
 
   <div class="navbar-right">
-    <button class="logout-btn" >Salir</button>
+    <p style="color: white;">{{currentUser.nombre | uppercase}} {{currentUser.apellido | uppercase }} </p>
+    <button style="margin: 5px;" class="logout-btn" (click)="singOut()">Salir</button>
   </div>
 </nav>
