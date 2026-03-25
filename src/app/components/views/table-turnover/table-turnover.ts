@@ -1,6 +1,7 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { Http } from '../../../services/http';
+import { AuthService } from '../../../services/auth';
 
 @Component({
   selector: 'app-table-turnover',
@@ -17,7 +18,7 @@ export class TableTurnover {
   rowData: any[] = [];
   colDefs: any[] = [];
   
-  constructor(private _http:Http) {}
+  constructor(private _http:Http, private _auth:AuthService) {}
 
   ngOnInit(): void {}
 
@@ -121,8 +122,17 @@ console.warn('lo que mandamos bien:', this.rowData)
 ////////codigo demo
 
 sendTableToDB(){
+  console.warn('empresa:', this.rowData[0])
+    console.warn('array:', this.rowData)
 
-  this._http.crearPost(this.rowData).subscribe({
+  this._http.crearPost(
+    {
+      asesor: this._auth.currentUser.nombre,
+      puesto: this._auth.currentUser.puesto,
+      cliente:this.rowData.length > 0 ? this.rowData[0]["Nombre Empresa"] : '',
+      altas_bajas: this.rowData
+    }
+  ).subscribe({
     next: (res) => {
       console.log('Empleado creado correctamente', res);
       // res.name contiene el ID generado por Firebase
