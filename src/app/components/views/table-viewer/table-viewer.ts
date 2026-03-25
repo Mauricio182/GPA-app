@@ -153,7 +153,7 @@ postEmpleado() {
   };
   onGridReady(params: any) {
     const allColumnIds: string[] = [];
-    params.columnApi.getAllColumns()?.forEach((col: any) => allColumnIds.push(col.getId()));
-    params.columnApi.autoSizeColumns(allColumnIds, true); // true = incluye header
+    params.columnApi?.getAllColumns()?.forEach((col: any) => allColumnIds.push(col.getId()));
+    params.columnApi?.autoSizeColumns(allColumnIds, true); // true = incluye header
   }
 }
