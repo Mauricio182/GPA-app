@@ -2,7 +2,10 @@
 <app-navbar></app-navbar> 
 <!-- <app-progresbar></app-progresbar> -->
   <br>
- <button matButton (click)="openDialog()">Launch dialog</button>
+  <div *ngIf="currentUserRol === 'contralord'" >
+ <button matButton (click)="openDialog()">AGREGAR</button>
+  </div>
+
 <div class="paginatorMainContainer">
 <mat-tab-group class="paginatorContainer">
     <mat-tab label="Riesgo Semanal Pasado" > 

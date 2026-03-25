@@ -15,6 +15,7 @@ import { NgIf } from '@angular/common';
 import { Http } from '../../../services/http';
 import {MatDialog} from '@angular/material/dialog';
 import { NewAdvisorForm } from '../../new-advisor-form/new-advisor-form';
+import { AuthService } from '../../../services/auth';
 
 @Component({
   selector: 'app-paginator',
@@ -31,10 +32,14 @@ export class Paginator {
   readonly dialog = inject(MatDialog);
   steps:number = 1
  @ViewChild('tableViewerturnover') tableViewer!: TableTurnover;
+
+ currentUserRol:any
  
-constructor(private sanitizer: DomSanitizer, private _http:Http){
+constructor(private sanitizer: DomSanitizer, private _http:Http, private _auth:AuthService){
     const url = 'https://tec.mx/sites/default/files/repositorio/TestPDF.pdf?srsltid=AfmBOopm176jrTnoszR3fuShjp-3thbK15l82Qbc3Brlj51GqjAmmIKv';
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    this.currentUserRol = this._auth.currentUser.puesto
+    console.log(this.currentUserRol)
 }
 
   openDialog() {
