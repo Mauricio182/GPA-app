@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 // import {
 //   MatDialog,
 //   MatDialogActions,
@@ -20,7 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-new-advisor-form',
-  imports: [MatButtonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, FormsModule, MatIconModule],
+  imports: [MatButtonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, FormsModule, MatIconModule, MatSelectModule],
   templateUrl: './new-advisor-form.html',
   styleUrl: './new-advisor-form.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,11 +32,13 @@ export class NewAdvisorForm {
 name = new FormControl('', [Validators.required, Validators.minLength(3)]);
 lastName = new FormControl('', [Validators.required, Validators.minLength(3)]);
 email = new FormControl('', [Validators.required, Validators.email]);
+rol = new FormControl('', [Validators.required]);
 password = new FormControl('', [Validators.required]);
 
 profileForm = new FormGroup({
   name: this.name,
   lastName: this.lastName,
+  rol: this.rol,
   email: this.email,
   password: this.password
 });
@@ -62,6 +65,7 @@ profileForm = new FormGroup({
     this._htpp.createAdviser({
       name: this.profileForm.value.name,
       lastName: this.profileForm.value.lastName,
+      rol: this.profileForm.value.rol,
       email: this.profileForm.value.email,
       password: this.profileForm.value.password
     }).subscribe(res => {

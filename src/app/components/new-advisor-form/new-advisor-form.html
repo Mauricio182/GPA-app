@@ -18,6 +18,17 @@
     </mat-form-field>
 
     <mat-form-field>
+        <mat-select [formControl]="rol" >
+            <mat-option value="asesor">Asesor</mat-option>
+            <mat-option value="ejecutivo">Ejecutivo</mat-option>
+        </mat-select>
+          @if (rol.invalid && rol.touched) {
+        <mat-error>{{ errorMessage(rol) }}</mat-error>
+        }
+    </mat-form-field>
+
+
+    <mat-form-field>
         <mat-label>Apellido</mat-label>
         <input matInput [formControl]="lastName" required />
 
