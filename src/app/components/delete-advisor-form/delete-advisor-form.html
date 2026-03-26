@@ -1,0 +1,26 @@
+<div class="form-container">
+    <button style="align-self: flex-end; color: #ffffff;;" mat-icon-button class="close-button" (click)="closeDialog()">
+        <mat-icon>close</mat-icon>
+    </button>
+
+    <form class="form" [formGroup]="profileForm">
+
+        <h1 style="color:#E0E0E0;">Eliminar Asesor</h1>
+
+        <mat-form-field>
+            <mat-select [formControl]="name">
+                <mat-option *ngFor="let adv of adviserList" [value]="adv.id">
+                    {{ adv.name }} {{ adv.lastName }} — {{ adv.email }}
+                </mat-option>
+            </mat-select>
+            @if (name.invalid && name.touched) {
+            <mat-error>{{ errorMessage(name) }}</mat-error>
+            }
+        </mat-form-field>
+
+        <button mat-raised-button color="warn" type="button" (click)="deleteAdviser()">
+            Eliminar
+        </button>
+
+    </form>
+</div>

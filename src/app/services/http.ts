@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +22,25 @@ getData(): Observable<any> {
 createAdviser(data: any): Observable<any> {
   console.log('crear asesor');
   return this.http.post(this.apiUrl+'/asesores.json', data); 
+}
+
+deleteAdviser(id: string): Observable<any> {
+  return this.http.delete(this.apiUrl + `/asesores/${id}.json`);
+}
+
+getAdvisers(): Observable<any[]> {
+  return this.http.get<any>(this.apiUrl + '/asesores.json').pipe(
+    map(data => {
+      if (!data) return [];
+
+      return Object.keys(data).map(key => ({
+        id: key,
+        name: data[key].name,
+        lastName: data[key].lastName,
+        email: data[key].email
+      }));
+    })
+  );
 }
   
 }

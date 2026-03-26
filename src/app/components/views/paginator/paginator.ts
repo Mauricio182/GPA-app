@@ -16,10 +16,12 @@ import { Http } from '../../../services/http';
 import {MatDialog} from '@angular/material/dialog';
 import { NewAdvisorForm } from '../../new-advisor-form/new-advisor-form';
 import { AuthService } from '../../../services/auth';
+import {MatButtonModule} from '@angular/material/button';
+import { DeleteAdvisorForm } from '../../delete-advisor-form/delete-advisor-form';
 
 @Component({
   selector: 'app-paginator',
-  imports: [MatTabsModule, TableViewer,Navbar, TableTurnover, NgIf],
+  imports: [MatTabsModule, TableViewer,Navbar, TableTurnover, NgIf, MatButtonModule],
   templateUrl: './paginator.html',
   styleUrl: './paginator.css',
 })
@@ -47,6 +49,16 @@ constructor(private sanitizer: DomSanitizer, private _http:Http, private _auth:A
     disableClose: true  // ❌ esto bloquea el click fuera y ESC
   });
 }
+
+  deleteDialog(){
+  this.dialog.open(DeleteAdvisorForm, {
+    disableClose: true  // ❌ esto bloquea el click fuera y ESC
+  });
+  }
+  
+  editDialog(){
+    
+  }
 
     closeDialog() {
     this.dialog.closeAll()

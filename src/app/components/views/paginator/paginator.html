@@ -3,7 +3,24 @@
 <!-- <app-progresbar></app-progresbar> -->
   <br>
   <div *ngIf="currentUserRol === 'contralord'" >
- <button matButton (click)="openDialog()">AGREGAR</button>
+ <!-- <button matButton (click)="openDialog()">AGREGAR</button> -->
+    <button matButton="outlined" style="margin: 5px;" (click)="openDialog()">
+      <span class="material-symbols-outlined">
+        person_add
+      </span>
+    </button>
+
+    <button matButton="outlined" style="margin: 5px;" (click)="deleteDialog()">
+      <span class="material-symbols-outlined">
+        person_cancel
+      </span>
+    </button>
+
+    <button matButton="outlined" style="margin: 5px;"(click)="editDialog()">
+      <span class="material-symbols-outlined">
+      person_edit
+      </span>
+    </button>
   </div>
 
 <div class="paginatorMainContainer">
