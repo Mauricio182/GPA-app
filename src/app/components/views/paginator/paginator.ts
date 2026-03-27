@@ -22,7 +22,7 @@ import { EditAdvisorForm } from '../../edit-advisor-form/edit-advisor-form';
 
 @Component({
   selector: 'app-paginator',
-  imports: [MatTabsModule, TableViewer,Navbar, TableTurnover, NgIf, MatButtonModule],
+  imports: [MatTabsModule, TableViewer,Navbar, TableTurnover, NgIf, MatButtonModule, Progresbar],
   templateUrl: './paginator.html',
   styleUrl: './paginator.css',
 })
@@ -36,6 +36,7 @@ export class Paginator {
   readonly dialog = inject(MatDialog);
   steps:number = 1
  @ViewChild('tableViewerturnover') tableViewer!: TableTurnover;
+   @ViewChild(Progresbar) progresChild!: Progresbar;
 
  currentUserRol:any
   selectedFileName2: any;
@@ -144,6 +145,7 @@ doc.save('table.pdf')
    // console.log(data);
     this.lastEmploysXlsData= data
        this.steps = 2
+       this.progresChild.next()
   };
 }
 
@@ -177,12 +179,14 @@ doc.save('table.pdf')
    // console.log(data);
     this.currentEmploysXlsData= data
     this.steps = 3
+    this.progresChild.next()
   };
 }
 
 
 calcTurnOver(): any[] {
   const curpsLista1 = new Set(this.lastEmploysXlsData.map(emp => emp["Empleado"]));
+  this.progresChild.next()
 
 
   ///////// demo

@@ -1,8 +1,8 @@
 
 <app-navbar></app-navbar> 
-<!-- <app-progresbar></app-progresbar> -->
-  <br>
-  <div *ngIf="currentUserRol === 'contralord'" >
+<div class="actionsContainer">
+
+  <div *ngIf="currentUserRol === 'contralord'"  style="height: 100px; padding-top: 70px;">
  <!-- <button matButton (click)="openDialog()">AGREGAR</button> -->
     <button matButton="outlined" style="margin: 5px;" (click)="openDialog()">
       <span class="material-symbols-outlined">
@@ -22,6 +22,11 @@
       </span>
     </button>
   </div>
+  <div style="width: 40%; height: 70px;"> <app-progresbar></app-progresbar></div>
+ 
+</div>
+
+  
 
 <div class="paginatorMainContainer">
 <mat-tab-group class="paginatorContainer">
@@ -40,9 +45,10 @@
 
 </div>
 <br>
+<div style="margin-left: 100px;">
 
 <!-- Primer input -->
-<button matButton="filled" (click)="fileInput.click()" style="margin: 10px;">
+<button matButton="filled" (click)="fileInput.click()" style="margin: 10px; ">
   <span style="display: flex; justify-content: center; flex-direction: row; align-items: center;">
     <span>INVENTARIO PASADO</span>
     <span *ngIf="!iconDone" class="material-symbols-outlined" style="margin-left: 5px;">file_upload</span>
@@ -74,6 +80,7 @@
 <label for="fileInput" *ngIf="calculado">
   Revision de altas finalizado
 </label>
+</div>
 
 <!-- 
 <button (click)="generarPDF()">Generar PDF</button>

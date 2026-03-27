@@ -12,10 +12,10 @@ export class Progresbar {
 
 
    steps = [
-    'Cuenta',
-    'Perfil',
-    'Confirmación',
-    'Finalizado'
+    'INV PASADO',
+    'INV ACTUAL',
+    'CALC. ALTAS/BAJAS',
+    'REVISION'
   ];
 
   currentStep = 0;

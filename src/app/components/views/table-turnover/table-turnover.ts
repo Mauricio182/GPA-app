@@ -2,10 +2,14 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { Http } from '../../../services/http';
 import { AuthService } from '../../../services/auth';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-table-turnover',
-  imports: [AgGridAngular],
+  imports: [AgGridAngular, MatButtonModule],
   templateUrl: './table-turnover.html',
   styleUrls: ['./table-turnover.css'],
 })
@@ -184,4 +188,210 @@ sendTableToDB(){
       .replace(/^./, (str) => str.toUpperCase()) // primera letra en mayúscula
       .trim();
   }
+
+exportPDF() {
+  if (!this.rowData || !this.rowData.length || !this.colDefs || !this.colDefs.length) {
+    console.warn('No hay datos para exportar');
+    return;
+  }
+
+  // Crear PDF horizontal A2
+  const doc = new jsPDF({
+    orientation: 'landscape',
+    unit: 'pt',
+    format: 'a2',
+  });
+
+  // Cargar logo desde public/img
+  const logo = new Image();
+  logo.src = '/img/Gp_logo.png'; // ruta relativa desde public
+
+  logo.onload = () => {
+    // Agregar logo
+    doc.addImage(logo, 'PNG', 40, 20, 100, 50);
+
+    // Título
+    doc.setFontSize(16);
+    doc.text('Reporte de Altas y Bajas', 160, 50);
+
+    // Headers y body
+    const headers = this.colDefs.map(c => c.headerName || c.field);
+    const body = this.rowData.map(row =>
+      this.colDefs.map(c => row[c.field] ?? '')
+    );
+
+    // Generar tabla
+    autoTable(doc, {
+      startY: 80, // espacio debajo del logo y título
+      head: [headers],
+      body: body,
+      styles: {
+        fontSize: 9,
+        cellPadding: 4,
+        overflow: 'linebreak', // divide texto largo en varias líneas
+        valign: 'middle',
+      },
+      headStyles: {
+        fillColor: [22, 160, 133],
+        textColor: 255,
+        halign: 'center',
+      },
+      columnStyles: headers.reduce((acc, _, idx) => {
+        acc[idx] = { cellWidth: 'wrap', halign: 'center' };
+        return acc;
+      }, {} as any),
+      theme: 'striped',
+      showHead: 'everyPage', // repetir encabezados en cada página
+      pageBreak: 'auto',     // permite cortar filas automáticamente
+      margin: { top: 80, bottom: 40 }, // espacio superior e inferior
+    });
+
+    // Guardar PDF
+    doc.save('reporte_aggrid_logo.pdf');
+    console.log('PDF generado correctamente con logo');
+  };
+
+  logo.onerror = () => {
+    console.error('No se pudo cargar el logo desde /img/Gp_logo.png');
+  };
+}
+
+
+// exportPDF() {
+
+// ;
+
+//   if (!this.rowData || !this.rowData.length || !this.colDefs || !this.colDefs.length) {
+//     console.warn('No hay datos para exportar');
+//     return;
+//   }
+
+//   const doc = new jsPDF({
+//     orientation: 'landscape',
+//     unit: 'pt',
+//     format: 'a2',
+//   });
+
+  
+
+//   doc.setFontSize(16);
+//   doc.text('Reporte de Altas y Bajas', 40, 40);
+
+//   const headers = this.colDefs.map(col => col.headerName || col.field);
+
+//   const body = this.rowData.map(row =>
+//     this.colDefs.map(col => row[col.field] !== undefined ? row[col.field] : '')
+//   );
+
+//   autoTable(doc, {
+//     startY: 60, // deja espacio para el título
+//     head: [headers],
+//     body: body,
+//     styles: {
+//       fontSize: 9,
+//       cellPadding: 4,
+//       overflow: 'linebreak', // divide texto largo en varias líneas
+//       valign: 'middle',
+//     },
+//     headStyles: {
+//       fillColor: [22, 160, 133],
+//       textColor: 255,
+//       halign: 'center',
+//     },
+//     columnStyles: headers.reduce((acc, _, idx) => {
+//       acc[idx] = { cellWidth: 'wrap', halign: 'center' }; // ancho automático y centrado
+//       return acc;
+//     }, {} as any),
+//     theme: 'striped',
+//     showHead: 'everyPage', // repetir encabezados en cada página
+//     pageBreak: 'auto',     // permite cortar filas automáticamente
+//     margin: { top: 60, bottom: 40 } // espacio superior e inferior
+//   });
+
+//   // Guardar PDF
+//   doc.save('reporte_aggrid_horizontal_a3.pdf');
+//   console.log('PDF generado correctamente en A3 horizontal');
+// }
+
+
+
+// exportPDF() {
+//   if (!this.rowData || !this.rowData.length || !this.colDefs || !this.colDefs.length) {
+//     console.warn('No hay datos para exportar');
+//     return;
+//   }
+
+//   const doc = new jsPDF({
+//     orientation: 'landscape',
+//     unit: 'pt',
+//     format: 'a3',
+//   });
+
+//   doc.setFontSize(16);
+//   doc.text('Reporte de Altas y Bajas', 40, 40);
+
+//   const MAX_COLS_PER_BLOCK = 8; 
+//   let startIndex = 0;
+
+//   while (startIndex < this.colDefs.length) {
+//     const blockCols = this.colDefs.slice(startIndex, startIndex + MAX_COLS_PER_BLOCK);
+
+//     const headers = blockCols.map(c => c.headerName || c.field);
+//     const body = this.rowData.map(row =>
+//       blockCols.map(c => row[c.field] !== undefined ? row[c.field] : '')
+//     );
+
+//     const startY = startIndex === 0 ? 60 : (doc as any).lastAutoTable.finalY + 20;
+
+//     autoTable(doc, {
+//       startY: startY,
+//       head: [headers],
+//       body: body,
+//       styles: {
+//         fontSize: 9,
+//         cellPadding: 4,
+//         overflow: 'linebreak',
+//         valign: 'middle',
+//       },
+//       headStyles: {
+//         fillColor: [22, 160, 133],
+//         textColor: 255,
+//         halign: 'center',
+//       },
+//       columnStyles: headers.reduce((acc, _, idx) => {
+//         acc[idx] = { cellWidth: 'wrap', halign: 'center' };
+//         return acc;
+//       }, {} as any),
+//       theme: 'striped',
+//       showHead: 'everyPage',
+//       pageBreak: 'auto',
+//     });
+
+//     startIndex += MAX_COLS_PER_BLOCK;
+//   }
+
+//   doc.save('reporte_aggrid_completo.pdf');
+//   console.log('PDF completo generado correctamente');
+// }
+
+generarTablaPDF() {
+const doc = new jsPDF()
+
+// It can parse html:
+// <table id="my-table"><!-- ... --></table>
+autoTable(doc, { html: '#my-table' })
+
+// Or use javascript directly:
+autoTable(doc, {
+  head: [['Name', 'Email', 'Country']],
+  body: [
+    ['David', 'david@example.com', 'Sweden'],
+    ['Castille', 'castille@example.com', 'Spain'],
+    // ...
+  ],
+})
+
+doc.save('table.pdf')
+}
+
 }

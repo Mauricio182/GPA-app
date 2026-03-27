@@ -12,5 +12,14 @@
     (gridReady)="onGridReady($event)">
   </ag-grid-angular>
 </div>
+    <button style="margin: 10px;" matButton="outlined" (click)="sendTableToDB()">Guardar cambios</button>
+    <button style="margin: 10px;" matButton="outlined" (click)="exportPDF()">
+      <span style="display: flex; justify-content: center; flex-direction: row; align-items: center;">
+        Generar pdf <span class="material-symbols-outlined">
+          picture_as_pdf
+        </span>
+      </span>
+    </button>
 
-<button (click)="sendTableToDB()">send to FIREBASE</button>
+<!-- <button (click)="sendTableToDB()">send to FIREBASE</button>
+<button (click)="exportPDF()">create pdf </button> -->
