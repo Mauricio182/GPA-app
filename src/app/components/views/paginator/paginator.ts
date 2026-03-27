@@ -18,6 +18,7 @@ import { NewAdvisorForm } from '../../new-advisor-form/new-advisor-form';
 import { AuthService } from '../../../services/auth';
 import {MatButtonModule} from '@angular/material/button';
 import { DeleteAdvisorForm } from '../../delete-advisor-form/delete-advisor-form';
+import { EditAdvisorForm } from '../../edit-advisor-form/edit-advisor-form';
 
 @Component({
   selector: 'app-paginator',
@@ -55,9 +56,13 @@ constructor(private sanitizer: DomSanitizer, private _http:Http, private _auth:A
     disableClose: true  // ❌ esto bloquea el click fuera y ESC
   });
   }
-  
+
   editDialog(){
     
+
+     this.dialog.open(EditAdvisorForm, {
+    disableClose: true  // ❌ esto bloquea el click fuera y ESC
+  });
   }
 
     closeDialog() {
