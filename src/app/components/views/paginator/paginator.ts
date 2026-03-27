@@ -32,11 +32,15 @@ export class Paginator {
   public currentEmploysXlsData: any[]= []
   public turnOverEmployeeXlsData: any[]= []
   public calculado: boolean = false
+  public selectedFileName: string = '';
   readonly dialog = inject(MatDialog);
   steps:number = 1
  @ViewChild('tableViewerturnover') tableViewer!: TableTurnover;
 
  currentUserRol:any
+  selectedFileName2: any;
+  iconDone: boolean = false
+   iconDone2: boolean = false
  
 constructor(private sanitizer: DomSanitizer, private _http:Http, private _auth:AuthService){
     const url = 'https://tec.mx/sites/default/files/repositorio/TestPDF.pdf?srsltid=AfmBOopm176jrTnoszR3fuShjp-3thbK15l82Qbc3Brlj51GqjAmmIKv';
@@ -114,6 +118,14 @@ doc.save('table.pdf')
   onFileChange(event: any) {
   const file = event.target.files[0];
 
+    this.selectedFileName = file.name;
+    
+    if (this.selectedFileName == null || this.selectedFileName == undefined) {
+      this.iconDone = false;
+    } else {
+      this.iconDone = true;
+    }
+
   const reader = new FileReader();
   reader.readAsBinaryString(file);
 
@@ -137,6 +149,15 @@ doc.save('table.pdf')
 
   onFileChange2(event: any) {
   const file = event.target.files[0];
+
+    this.selectedFileName2 = file.name;
+
+    if (this.selectedFileName2 == null || this.selectedFileName2 == undefined) {
+      this.iconDone2 = false;
+    } else {
+      this.iconDone2 = true;
+    }
+
 
   const reader = new FileReader();
   reader.readAsBinaryString(file);

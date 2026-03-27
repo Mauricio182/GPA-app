@@ -39,31 +39,43 @@
 </mat-tab-group>
 
 </div>
-<label for="fileInput">
-  Cargar archivo de empleados pasados (Excel .xlsx o .xls)
-</label>
-<input type="file" (change)="onFileChange($event)" accept=".xlsx,.xls" />
 <br>
 
-<label for="fileInput">
-  Cargar archivo inventario actual (Excel .xlsx o .xls)
-</label>
-<input type="file" (change)="onFileChange2($event)" accept=".xlsx,.xls" />
+<!-- Primer input -->
+<button matButton="filled" (click)="fileInput.click()" style="margin: 10px;">
+  <span style="display: flex; justify-content: center; flex-direction: row; align-items: center;">
+    <span>INVENTARIO PASADO</span>
+    <span *ngIf="!iconDone" class="material-symbols-outlined" style="margin-left: 5px;">file_upload</span>
+    <span *ngIf="iconDone" class="material-symbols-outlined"> download_done </span>
+  </span>
+</button>
+<input #fileInput type="file" (change)="onFileChange($event)" accept=".xlsx,.xls" style="display: none;" />
+<span *ngIf="selectedFileName" style="margin-left: 10px; font-style: italic;">
+  {{ selectedFileName }}
+</span>
+
 <br>
 
-<label for="fileInput">
-  Calcualr altas y bajas
-</label>
-<!-- <h1 *ngIf="calculado">
-  Calcualr altas y bajas
-</h1> -->
-<button (click)="calcTurnOver()">calcular altas y bajas</button>
-<br>
+<!-- Segundo input -->
+<button matButton="filled" (click)="fileInput2.click()" style="margin: 10px;">
+  <span style="display: flex; justify-content: center; flex-direction: row; align-items: center;">
+    <span>INVENTARIO ACTUAL</span>
+    <span *ngIf="!iconDone2" class="material-symbols-outlined" style="margin-left: 5px;">file_upload</span>
+    <span *ngIf="iconDone2" class="material-symbols-outlined"> download_done </span>
+  </span>
+</button>
+<input #fileInput2 type="file" (change)="onFileChange2($event)" accept=".xlsx,.xls" style="display: none;" />
+<span *ngIf="selectedFileName2" style="margin-left: 10px; font-style: italic;">
+  {{ selectedFileName2 }}
+</span><br>
+
+<button matButton="filled" (click)="calcTurnOver()" style="margin: 10px;">calcular altas y bajas</button>
+
 <label for="fileInput" *ngIf="calculado">
   Revision de altas finalizado
 </label>
 
-
-<!-- <button (click)="generarPDF()">Generar PDF</button>
+<!-- 
+<button (click)="generarPDF()">Generar PDF</button>
 <button (click)="previsualizarPDF()">Previsualizar PDF</button>
 <button (click)="generarTablaPDF()">generarTablaPDF</button> -->
