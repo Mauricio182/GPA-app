@@ -1,0 +1,21 @@
+.form{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    margin-top: 0px;
+    align-items: center;
+}
+
+mat-form-field{
+    width: 70%;
+}
+
+.form-container{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    background-color: #044178;
+    padding: 10px;
+}

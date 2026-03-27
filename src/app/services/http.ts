@@ -42,5 +42,10 @@ getAdvisers(): Observable<any[]> {
     })
   );
 }
+
+updateAdviser(id: string, data: any) {
+  console.warn('este es el cambio de PATCH',data)
+  return this.http.patch(`${this.apiUrl}/asesores/${id}.json`, data);
+}
   
 }
