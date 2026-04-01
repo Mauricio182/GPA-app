@@ -19,6 +19,8 @@
 
     <mat-form-field>
         <mat-select [formControl]="rol" >
+              <mat-option value="" disabled selected>
+Seleccionar rol    </mat-option>
             <mat-option value="asesor">Asesor</mat-option>
             <mat-option value="ejecutivo">Ejecutivo</mat-option>
         </mat-select>

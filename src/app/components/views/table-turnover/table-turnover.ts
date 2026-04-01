@@ -21,7 +21,7 @@ export class TableTurnover {
 
   rowData: any[] = [];
   colDefs: any[] = [];
-  
+
   constructor(private _http:Http, private _auth:AuthService) {}
 
   ngOnInit(): void {}
@@ -131,9 +131,10 @@ sendTableToDB(){
 
   this._http.crearPost(
     {
-      asesor: this._auth.currentUser.nombre,
+      asesor:  `${this._auth.currentUser.nombre} ${this._auth.currentUser.apellido} `,
       puesto: this._auth.currentUser.puesto,
       cliente:this.rowData.length > 0 ? this.rowData[0]["Nombre Empresa"] : '',
+      fecha: new Date(),
       altas_bajas: this.rowData
     }
   ).subscribe({
@@ -272,7 +273,7 @@ exportPDF() {
 //     format: 'a2',
 //   });
 
-  
+
 
 //   doc.setFontSize(16);
 //   doc.text('Reporte de Altas y Bajas', 40, 40);
@@ -330,7 +331,7 @@ exportPDF() {
 //   doc.setFontSize(16);
 //   doc.text('Reporte de Altas y Bajas', 40, 40);
 
-//   const MAX_COLS_PER_BLOCK = 8; 
+//   const MAX_COLS_PER_BLOCK = 8;
 //   let startIndex = 0;
 
 //   while (startIndex < this.colDefs.length) {
