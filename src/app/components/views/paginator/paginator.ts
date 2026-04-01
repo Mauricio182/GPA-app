@@ -11,7 +11,7 @@ import { TableViewer } from '../table-viewer/table-viewer';
 import { Navbar } from '../../navbar/navbar';
 import { Progresbar } from '../../progresbar/progresbar';
 import { TableTurnover } from '../table-turnover/table-turnover';
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { Http } from '../../../services/http';
 import {MatDialog} from '@angular/material/dialog';
 import { NewAdvisorForm } from '../../new-advisor-form/new-advisor-form';
@@ -19,10 +19,11 @@ import { AuthService } from '../../../services/auth';
 import {MatButtonModule} from '@angular/material/button';
 import { DeleteAdvisorForm } from '../../delete-advisor-form/delete-advisor-form';
 import { EditAdvisorForm } from '../../edit-advisor-form/edit-advisor-form';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-paginator',
-  imports: [MatTabsModule, TableViewer,Navbar, TableTurnover, NgIf, MatButtonModule, Progresbar],
+  imports: [MatTabsModule, TableViewer,Navbar, TableTurnover, NgIf, MatButtonModule, Progresbar, RouterModule, CommonModule],
   templateUrl: './paginator.html',
   styleUrl: './paginator.css',
 })

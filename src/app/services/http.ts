@@ -15,6 +15,11 @@ crearPost(data: any): Observable<any> {
   return this.http.post(this.apiUrl+'/altas-bajas.json', data);
 }
 
+getOldturnOver(): Observable<any> {
+  console.log('crear empleado activado');
+  return this.http.get(this.apiUrl+'/altas-bajas.json');
+}
+
 getData(): Observable<any> {
   return this.http.get(this.apiUrl); // devuelve todos los empleados
 }

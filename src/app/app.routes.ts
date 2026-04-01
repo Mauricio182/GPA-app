@@ -3,6 +3,7 @@ import { LoginForm } from './components/views/login-form/login-form';
 import { Paginator } from './components/views/paginator/paginator';
 import { verifyGuard } from './guards/verify-guard';
 import { NoAccessHome } from './components/views/no-access-home/no-access-home';
+import { CheckOldTurnover } from './components/check-old-turnover/check-old-turnover';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,12 @@ export const routes: Routes = [
     title: 'start',
     canActivate: [verifyGuard],
     component: Paginator,
+  },
+    {
+    path: 'old-turnover',
+    title: 'old-turnover',
+    canActivate: [verifyGuard],
+    component: CheckOldTurnover,
   },
     {
     path: 'no-auth',

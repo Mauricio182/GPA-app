@@ -1,5 +1,11 @@
 
-<app-navbar></app-navbar> 
+<app-navbar></app-navbar>
+
+
+    <br>
+    <button matButton="outlined" style="margin: 5px; margin-left: 100px;"  [routerLink]="'/old-turnover'">
+        consultar movimientos
+    </button>
 <div class="actionsContainer">
 
   <div *ngIf="currentUserRol === 'contralord'"  style="height: 100px; padding-top: 70px;">
@@ -23,21 +29,21 @@
     </button>
   </div>
   <div style="width: 40%; height: 70px;"> <app-progresbar></app-progresbar></div>
- 
+
 </div>
 
-  
+
 
 <div class="paginatorMainContainer">
 <mat-tab-group class="paginatorContainer">
-    <mat-tab label="Riesgo Semanal Pasado" > 
+    <mat-tab label="Riesgo Semanal Pasado" >
         <app-table-viewer [lastEmploys]="lastEmploysXlsData"></app-table-viewer>
     </mat-tab>
-    <mat-tab  label="Inventario Actual" [disabled]="steps < 2"> 
+    <mat-tab  label="Inventario Actual" [disabled]="steps < 2">
         <!-- <iframe [src]="pdfUrl" width="30%" height="400px">   </iframe> -->
-    <app-table-viewer #tableViewer [currentEmploys]="currentEmploysXlsData"></app-table-viewer>   
+    <app-table-viewer #tableViewer [currentEmploys]="currentEmploysXlsData"></app-table-viewer>
 </mat-tab>
-    <mat-tab label="Altas y modificaciones" [disabled]="steps < 3"> 
+    <mat-tab label="Altas y modificaciones" [disabled]="steps < 3">
         <app-table-turnover #tableViewerturnover [turnOverEmployee]="turnOverEmployeeXlsData"></app-table-turnover>
     </mat-tab>
     <!-- <mat-tab label="Third"> Content 3 </mat-tab> -->
@@ -82,7 +88,7 @@
 </label>
 </div>
 
-<!-- 
+<!--
 <button (click)="generarPDF()">Generar PDF</button>
 <button (click)="previsualizarPDF()">Previsualizar PDF</button>
 <button (click)="generarTablaPDF()">generarTablaPDF</button> -->
