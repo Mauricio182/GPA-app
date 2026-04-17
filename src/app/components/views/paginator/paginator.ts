@@ -19,7 +19,7 @@ import { AuthService } from '../../../services/auth';
 import {MatButtonModule} from '@angular/material/button';
 import { DeleteAdvisorForm } from '../../delete-advisor-form/delete-advisor-form';
 import { EditAdvisorForm } from '../../edit-advisor-form/edit-advisor-form';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-paginator',
@@ -37,14 +37,17 @@ export class Paginator {
   readonly dialog = inject(MatDialog);
   steps:number = 1
  @ViewChild('tableViewerturnover') tableViewer!: TableTurnover;
+   @ViewChild('tableViewer') tableViewer1!: TableViewer;
+
    @ViewChild(Progresbar) progresChild!: Progresbar;
 
  currentUserRol:any
   selectedFileName2: any;
   iconDone: boolean = false
    iconDone2: boolean = false
- 
-constructor(private sanitizer: DomSanitizer, private _http:Http, private _auth:AuthService){
+
+constructor(private sanitizer: DomSanitizer, private _http:Http, private _auth:AuthService,   private router: Router  // 🔹 Inyección del Router
+){
     const url = 'https://tec.mx/sites/default/files/repositorio/TestPDF.pdf?srsltid=AfmBOopm176jrTnoszR3fuShjp-3thbK15l82Qbc3Brlj51GqjAmmIKv';
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     this.currentUserRol = this._auth.currentUser.puesto
@@ -64,7 +67,7 @@ constructor(private sanitizer: DomSanitizer, private _http:Http, private _auth:A
   }
 
   editDialog(){
-    
+
 
      this.dialog.open(EditAdvisorForm, {
     disableClose: true  // ❌ esto bloquea el click fuera y ESC
@@ -117,11 +120,50 @@ doc.save('table.pdf')
     doc.save('archivo.pdf');
   }
 
+openFile(input: HTMLInputElement) {
+  input.value = ''; // 🔥 limpia antes de abrir
+  input.click();
+}
+
+clearFile(input: HTMLInputElement) {
+  input.value = '';
+
+  // 🔥 esto hace que SÍ se limpie de verdad
+  input.type = 'text';
+  input.type = 'file';
+  this.progresChild.prev();
+
+  this.resetFileState();
+  //this.tableViewer.clearGrid()
+}
+
+resetFileState() {
+  this.selectedFileName = '';
+  this.iconDone = false;
+  this.lastEmploysXlsData = [];
+   this.progresChild.prev();
+  this.tableViewer1.clearGrid()
+// this.tableViewer1.rowData = []
+// this.tableViewer1.colDefs = []
+}
+
+forceClear(){
+  this.router.navigate(['/old-turnover']);
+  setTimeout(() => {
+    this.router.navigate(['/old-turnover']);
+  }, 0);
+
+
+  setTimeout(() => {
+    this.router.navigate(['/start']);
+  }, 0);
+}
+
   onFileChange(event: any) {
   const file = event.target.files[0];
 
     this.selectedFileName = file.name;
-    
+
     if (this.selectedFileName == null || this.selectedFileName == undefined) {
       this.iconDone = false;
     } else {
@@ -207,7 +249,7 @@ this.turnOverEmployeeXlsData.forEach(emp => {
   this.turnOverEmployeeXlsData = turnOver
 
   this.tableViewer.updateGrid(turnOver)
-     
+
       console.log('step3')
       this.calculado=true
 

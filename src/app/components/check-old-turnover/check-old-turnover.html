@@ -1,30 +1,38 @@
 <app-navbar></app-navbar>
-    <button matButton="outlined" style="margin: 5px;"  [routerLink]="'/start'">
+    <button matButton="outlined"  style="margin: 5px; margin-left: 100px; margin-top: 25px !important;" [routerLink]="'/start'">
         altas y bajas
     </button>
-<div class="filters">
+<div class="filters" style="display: flex; align-items: center; margin-left: 100px;">
 
-    <button (click)="cargarDatos()">consultar</button>
+
   <!-- Dropdown de empresa -->
-  <label>Empresa:</label>
+  <label style="margin-right: 20px;">Empresa:  </label>
   <select [(ngModel)]="selectedEmpresa" (change)="onEmpresaChange()">
     <option value="" disabled selected>Seleccione empresa</option>
     <option *ngFor="let emp of empresas" [value]="emp">{{ emp }}</option>
   </select>
 
   <!-- Dropdown de fecha -->
-  <label>Fecha:</label>
-  <select [(ngModel)]="selectedFecha" (change)="onFechaChange()">
+  <label style="margin-right: 20px; margin-left: 20px;">Fecha:</label>
+  <select  [(ngModel)]="selectedFecha" (change)="onFechaChange()">
     <option value="" disabled selected>Seleccione fecha</option>
     <option *ngFor="let fecha of fechas" [value]="fecha">{{ fecha }}</option>
   </select>
+
+    <button style=" margin-left: 50px; " matButton="outlined" (click)="cargarDatos()">consultar</button>
 </div>
 
+<br>
+
+<div style="display: flex; justify-content: center;">
 <!-- AG Grid -->
 <ag-grid-angular
-  style="width: 100%; height: 400px;"
+  style="width: 90%; height: 400px; "
   class="ag-theme-alpine"
   [rowData]="rowData"
   [columnDefs]="columnDefs"
   [defaultColDef]="{ sortable: true, filter: true }">
 </ag-grid-angular>
+
+
+</div>

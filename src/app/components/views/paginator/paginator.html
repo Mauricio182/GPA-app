@@ -27,6 +27,9 @@
       person_edit
       </span>
     </button>
+
+    <button style="margin-left: 20px;" matButton="filled" (click)="forceClear()">Limpiar tabla</button>
+
   </div>
   <div style="width: 40%; height: 70px;"> <app-progresbar></app-progresbar></div>
 
@@ -54,13 +57,34 @@
 <div style="margin-left: 100px;">
 
 <!-- Primer input -->
-<button matButton="filled" (click)="fileInput.click()" style="margin: 10px; ">
-  <span style="display: flex; justify-content: center; flex-direction: row; align-items: center;">
+ <input
+  type="file"
+  #fileInput
+  (change)="onFileChange($event)"
+  hidden
+>
+
+<button
+  matButton="filled"
+  (click)="iconDone ? clearFile(fileInput) : openFile(fileInput)"
+  style="margin: 10px;"
+>
+  <span style="display: flex; align-items: center;">
     <span>INVENTARIO PASADO</span>
-    <span *ngIf="!iconDone" class="material-symbols-outlined" style="margin-left: 5px;">file_upload</span>
-    <span *ngIf="iconDone" class="material-symbols-outlined"> download_done </span>
+
+    <span *ngIf="!iconDone" class="material-symbols-outlined" style="margin-left: 5px;">
+      file_upload
+    </span>
+
+    <span *ngIf="iconDone" class="material-symbols-outlined" style="margin-left: 5px;">
+      download_done
+    </span>
   </span>
 </button>
+<!-- <button (click)="clearFile(fileInput)" [routerLink]="'/old-turnover'">Quitar archivo</button>
+ -->
+
+<!-- <button matButton="filled" (click)="forceClear()">Limpiar tabla</button> -->
 <input #fileInput type="file" (change)="onFileChange($event)" accept=".xlsx,.xls" style="display: none;" />
 <span *ngIf="selectedFileName" style="margin-left: 10px; font-style: italic;">
   {{ selectedFileName }}
